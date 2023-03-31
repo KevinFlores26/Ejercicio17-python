@@ -6,6 +6,6 @@
 
 <p><i> El proyecto utiliza el framework de python, django como base, así como HTML, CSS y JavaScript para el apartado del front-end. </i></p>
 
-<p> No hay requerimientos especificos para poder instalar el proyecto, además de tener instalado alguna versión de python (preferiblemente la versión 3.10.10). Para la instalación basta con descargar el proyecto completo, luego iniciar el servidor usando la consola, con el comando <i>`python manage.py runserver`.</i></p>
+<p> No hay requerimientos especificos para poder instalar el proyecto, además de tener instalado alguna versión de python (preferiblemente la versión 3.10.10). Para la instalación basta con descargar el proyecto completo, luego iniciar el servidor usando la consola, con el comando <i>`python manage.py runserver`.</i>, antes de esto debes estar en el directorio "Ejercicios" escribiendo en la consola `cd Ejercicios`.</p>
 
 <p><b> Por último cabe resaltar que este proyecto fue hecho únicamentre por mi persona, Kevin Flores. </b><br> Mi perfil de linkedIn por si deseas contactarme: <i> https://www.linkedin.com/in/kevin-brian-f-091775265/ </i></p>
