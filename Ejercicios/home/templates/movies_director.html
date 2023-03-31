@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Director's movies{% endblock %}
+
+{% block head %}Peliculas del Director{% endblock %}
+{% block home_or_movies %}<a href="{% url 'index' %}">Inicio</a>{% endblock %}
+
+{% block h1 %}
+    Peliculas de: {{ director }} {{ director.surnames }}
+{% endblock %}
+{% block h3 %}
+    Puedes ver los datos de las peliculas dirigidas por {{ director }} {{ director.surnames }} que se encuentran abajo!
+{% endblock %}
+
+{% block content %}
+
+    <h4 class="p-h4">Lista de Peliculas</h4>
+    <hr>
+    <div class="movies-box" onmouseover="document.querySelector('.p-h4').classList.add('p-h2');" onmouseout="document.querySelector('.p-h4').classList.remove('p-h2');">
+        {% for movie in movies %}
+        <ul class="movies" id="movie-{{ movie.id }}" data-title="{{ movie.title }}" data-summary="{{ movie.summary }}">
+            <li class="movie_title">{{ movie.title }}</li>
+            <li class="movie_date">
+                {% if movie.release_date != None %}
+                    {{ movie.release_date }}
+                {% else %}
+                    Sin datos de la fecha de estreno.
+                {% endif %}
+            </li>
+            <li class="movie_budget">
+                {% if movie.budget != None %}
+                    Presupuesto: ${{ movie.budget }}
+                {% else %}
+                    Sin datos del presupuesto.
+                {% endif %}
+            </li>
+            <li class="movie_profits">
+                {% if movie.profits > 0 %}
+                    Taquilla:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p class="profit-m" style="color: var(--positive);">${{ movie.profits }}</p>
+                {% elif movie.profits < 0 %}
+                    Taquilla:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p class="profit-m" style="color: var(--negative);">${{ movie.profits }}</p>
+                {% elif movie.profits == 0 %}
+                    Sin ganancias: <p class="profit-m" style="color: var(--neutral);">${{ movie.profits }}</p>
+                {% else %}
+                    Sin datos de las ganancias.
+                {% endif %}
+            </li>
+            <li class="movie_genre">
+                {% if movie.genre.all.count == 1 %}
+                    Género: <br>
+                    {% for genre in movie.genre.all|slice:":3" %}
+                        <p class="genre">{{ genre }}</p>
+                    {% endfor %}
+
+                {% elif movie.genre.all.count > 1 %}
+                    Géneros: <br>
+                    {% for genre in movie.genre.all|slice:":3" %}
+                        <p class="genre">{{ genre }}</p>
+                    {% endfor %}
+
+                {% else %}
+                    Sin géneros especificados
+                {% endif %}
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block descriptions %}
+
+    <h4 class="m-h4">Descripción</h4>
+    <hr>
+    <div class="description-box" onmouseover="document.querySelector('.m-h4').classList.add('m-h2');" onmouseout="document.querySelector('.m-h4').classList.remove('m-h2');">
+        <article id="default-description">
+            <p>Haz click en cualquier pelicula para mostrar su descripción.</p>
+        </article>
+
+        <article id="description_movie">
+            <p id="movie_summary_aside"></p>
+        </article>
+
+        <article id="description_summary">
+            <p id="movie_summary"></p>
+        </article>
+    </div>
+
+{% endblock %}

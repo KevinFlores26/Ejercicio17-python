@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block head %}Directores y Actores{% endblock %}
+{% block home_or_movies %}<a href="{% url 'movies' %}">Peliculas</a>{% endblock %}
+
+{% block h1 %}Directores y Actores de Peliculas{% endblock %}
+{% block h3 %}
+    Puedes ver los datos de los directores y actores que se encuentran abajo, <br> también puedes consultar sus peliculas!
+{% endblock %}
+
+{% block content %}
+
+    <h4 class="d-h4">Directores</h4>
+    <hr>
+    <div class="directors-box" onmouseover="document.querySelector('.d-h4').classList.add('d-h2');" onmouseout="document.querySelector('.d-h4').classList.remove('d-h2');">
+        {% for director in directors %}
+        <a href="{% url 'movies_director' director_id=director.id %}">
+            <ul class="directors">
+                <li class="director_name">{{ director.names }}</li>
+                <li class="director_surname">{{ director.surnames }}</li>
+                <li class="director_dates">
+                    {{ director.date_of_birth }}
+                    {% if director.date_of_death != None %}
+                        - {{ director.date_of_death }}
+                    {% else %}
+                        <br>
+                    {% endif %}
+                </li>
+                <li class="director_nacionality">{{ director.nacionality }}</li>
+                <li class="director_status">
+                    {% if director.status == 'A' %}
+                        <p class="status-d" style="color: var(--positive);">Activo</p>
+                    {% elif director.status == 'I' %}
+                        <p class="status-d" style="color: var(--medium)">Actualmente Inactivo</p>
+                    {% elif director.status == 'R' %}
+                        <p class="status-d" style="color: var(--neutral);">Retirado</p>
+                    {% else %}
+                        <p class="status-d" style="color: var(--negative);">Fallecido</p>
+                    {% endif %}
+                </li>
+            </ul>
+        </a>
+        {% endfor %}
+    </div>
+
+    <h4 class="a-h4">Actores</h4>
+    <hr>
+    <div class="actors-box" onmouseover="document.querySelector('.a-h4').classList.add('a-h2');" onmouseout="document.querySelector('.a-h4').classList.remove('a-h2');">
+        {% for actor in actors %}
+        <a href="{% url 'movies_actor' actor_id=actor.id %}">
+            <ul class="actors">
+                <li class="actor_name">{{ actor.names }}</li>
+                <li class="actor_surname">{{ actor.surnames }}</li>
+                <li class="actor_dates">
+                    {{ actor.date_of_birth }}
+                    {% if actor.date_of_death != None %}
+                        - {{ actor.date_of_death }}
+                    {% else %}
+                        <br>
+                    {% endif %}
+                </li>
+                <li class="actor_nacionality">{{ actor.nacionality }}</li>
+                <li class="actor_status">
+                    {% if actor.status == 'A' %}
+                        <p class="status-a" style="color: var(--positive);">Activo</p>
+                    {% elif actor.status == 'I' %}
+                        <p class="status-a" style="color: var(--medium);">Actualmente Inactivo</p>
+                    {% elif actor.status == 'R' %}
+                        <p class="status-a" style="color: var(--neutral);">Retirado</p>
+                    {% else %}
+                        <p class="status-a" style="color: var(--negative);">Fallecido</p>
+                    {% endif %}
+                </li>
+            </ul>
+        </a>
+        {% endfor %}
+    </div>
+
+{% endblock %}
